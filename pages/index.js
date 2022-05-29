@@ -39,10 +39,36 @@ export default function Home() {
       });
   };
 
+  const register = e => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/register`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .then(response => {
+        console.log(response);
+
+        alert("User created successfully");
+      })
+      .catch(error => {
+        console.log(error.response);
+        // setErrorMsg(error.response.data.message);
+      });
+  };
+
   return (
     <Container>
       {!isLoggedIn ? (
-        <form onSubmit={login}>
+        <form>
           <h1>Log in</h1>
           <input type="email" name="email" id="email" placeholder="Email" />
           <input
@@ -51,7 +77,8 @@ export default function Home() {
             id="password"
             placeholder="Password"
           />
-          <input type="submit" value="Log in" />
+          <input onClick={login} type="submit" value="Log in" />
+          <input onClick={register} type="submit" value="Register" />
           {errorMsg && <p className="error-msg">{errorMsg}</p>}
         </form>
       ) : (
