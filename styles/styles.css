@@ -49,6 +49,11 @@ form .checkbox-group {
   column-gap: 0.5rem;
 }
 
+.error-msg {
+  color: red;
+  text-align: center;
+}
+
 /* Inputs */
 
 input,
